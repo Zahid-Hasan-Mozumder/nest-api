@@ -34,7 +34,7 @@ model Bookmark {
 
   title       String
   description String?
-  link        String
+  link        String  @unique
 
   userId Int // foreign key
   user   User @relation(fields: [userId], references: [id])

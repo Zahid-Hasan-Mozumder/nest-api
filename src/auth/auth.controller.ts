@@ -1,10 +1,10 @@
 import { Body, Controller, ParseIntPipe, Post} from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { User, Bookmark } from "@prisma/client";
-import { SigninDto, SignupDto } from "../dto";
+import { SigninDto, SignupDto } from "./dto";
 
 
-@Controller('api')
+@Controller('api/auth')
 export class AuthController {
 
     constructor(private authService : AuthService) {}
