@@ -1,21 +1,26 @@
-import { Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
-import { JwtGuard } from 'src/auth/guard';
+import { JwtGuard } from '../auth/guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { UserDto } from './dto';
+import { GetUser } from '../auth/decorator';
 
 @UseGuards(JwtGuard)
+@ApiTags('Users')
+@ApiBearerAuth()
 @Controller('api/users')
 export class UserController {
 
     constructor(private userService : UserService) {}
 
     @Get('me')
-    getMe(@Req() req : any) {
-        return this.userService.getMe(req);
+    getMe(@GetUser() user : any) {
+        return this.userService.getMe(user);
     }
 
-    @Patch('edit')
-    updateMe(@Req() req : any) {
-        return this.userService.updateMe(req);
+    @Patch('me')
+    updateMe(@GetUser() user : any, @Body() dto : UserDto) {
+        return this.userService.updateMe(user, dto);
     }
 }

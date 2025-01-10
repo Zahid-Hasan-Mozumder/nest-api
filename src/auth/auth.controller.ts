@@ -2,8 +2,9 @@ import { Body, Controller, ParseIntPipe, Post} from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { User, Bookmark } from "@prisma/client";
 import { SigninDto, SignupDto } from "./dto";
+import { ApiTags } from "@nestjs/swagger";
 
-
+@ApiTags('Auth')
 @Controller('api/auth')
 export class AuthController {
 
